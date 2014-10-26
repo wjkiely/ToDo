@@ -66,6 +66,7 @@ public class MainActivity extends Activity implements OnClickListener {
             writeToDoItems(toDoItems);
             this.aa.notifyDataSetChanged();
             this.txtItem.setText("");
+            this.txtItem.setHint("Add another goal");
         }
     }
 
