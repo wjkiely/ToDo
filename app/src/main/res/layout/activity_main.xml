@@ -37,5 +37,10 @@
         android:layout_marginTop="100dp"
         android:layout_alignParentEnd="false"
         android:headerDividersEnabled="true" />
-
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/listItems">
+    </ListView>
 </RelativeLayout>

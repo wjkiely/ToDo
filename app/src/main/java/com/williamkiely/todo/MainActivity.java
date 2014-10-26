@@ -2,7 +2,6 @@ package com.williamkiely.todo;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,9 +13,9 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-
 public class MainActivity extends Activity implements OnClickListener {
-
+    ListView lv;
+    Model[] modelItems;
     EditText txtItem;
     Button btnAdd;
     ListView listItems;
@@ -31,6 +30,16 @@ public class MainActivity extends Activity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        lv = (ListView) findViewById(R.id.listView1);
+        modelItems = new Model[5];
+        modelItems[0] = new Model("pizza", 0);
+        modelItems[1] = new Model("burger", 1);
+        modelItems[2] = new Model("olives", 1);
+        modelItems[3] = new Model("orange", 0);
+        modelItems[4] = new Model("tomato", 1);
+        CustomAdapter adapter = new CustomAdapter(this, modelItems);
+        lv.setAdapter(adapter);
+
         txtItem = (EditText) findViewById(R.id.txtItem);
         btnAdd = (Button) findViewById(R.id.btnAdd);
         listItems = (ListView) findViewById(R.id.listItems);
@@ -76,5 +85,4 @@ public class MainActivity extends Activity implements OnClickListener {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }
