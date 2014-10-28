@@ -12,16 +12,16 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends Activity implements OnClickListener {
     ListView lv;
-    Model[] modelItems;
+    List<Model> modelItems;
     EditText txtItem;
     Button btnAdd;
     ListView listItems;
 
-    ArrayList<String> toDoItems;
-    ArrayAdapter<String> aa;
+    CustomAdapter adapter;
 
 
     // Called when the activity is first created
@@ -31,13 +31,8 @@ public class MainActivity extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         lv = (ListView) findViewById(R.id.listView1);
-        modelItems = new Model[5];
-        modelItems[0] = new Model("pizza", 0);
-        modelItems[1] = new Model("burger", 1);
-        modelItems[2] = new Model("olives", 1);
-        modelItems[3] = new Model("orange", 0);
-        modelItems[4] = new Model("tomato", 1);
-        CustomAdapter adapter = new CustomAdapter(this, modelItems);
+        modelItems = new ArrayList<Model>(0);
+        adapter = new CustomAdapter(this, modelItems);
         lv.setAdapter(adapter);
 
         txtItem = (EditText) findViewById(R.id.txtItem);
@@ -47,18 +42,14 @@ public class MainActivity extends Activity implements OnClickListener {
         btnAdd.setOnClickListener(this);
         txtItem.setOnClickListener(this);
 
-        toDoItems = new ArrayList<String>();
-        aa = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, toDoItems);
-        listItems.setAdapter(aa);
-
     }
 
     private void addItem(String item) {
         if (item.length() > 0) {
-            this.toDoItems.add(item);
-            this.aa.notifyDataSetChanged();
+            this.modelItems.add(new Model(item, 0));
             this.txtItem.setText("");
             this.txtItem.setHint("Add another goal");
+            this.adapter.notifyDataSetChanged();
         }
     }
 

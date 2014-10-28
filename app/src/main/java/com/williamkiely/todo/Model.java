@@ -1,5 +1,9 @@
 package com.williamkiely.todo;
-public class Model{
+
+import java.io.Serializable;
+import java.util.Set;
+
+public class Model implements Serializable {
     String name;
     int value; /* 0 -&gt; checkbox disable, 1 -&gt; checkbox enable */
 

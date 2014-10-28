@@ -9,10 +9,13 @@ package com.williamkiely.todo;
         import android.widget.ArrayAdapter;
         import android.widget.CheckBox;
         import android.widget.TextView;
+
+        import java.util.List;
+
 public class CustomAdapter extends ArrayAdapter<Model>{
-        Model[] modelItems = null;
+        List<Model> modelItems = null;
         Context context;
-public CustomAdapter(Context context, Model[] resource) {
+public CustomAdapter(Context context, List<Model> resource) {
         super(context,R.layout.row,resource);
 // TODO Auto-generated constructor stub
         this.context = context;
@@ -25,8 +28,8 @@ public View getView(int position, View convertView, ViewGroup parent) {
         convertView = inflater.inflate(R.layout.row, parent, false);
         TextView name = (TextView) convertView.findViewById(R.id.textView1);
         CheckBox cb = (CheckBox) convertView.findViewById(R.id.checkBox1);
-        name.setText(modelItems[position].getName());
-        if(modelItems[position].getValue() == 1)
+        name.setText(modelItems.get(position).getName());
+        if(modelItems.get(position).getValue() == 1)
         cb.setChecked(true);
         else
         cb.setChecked(false);
