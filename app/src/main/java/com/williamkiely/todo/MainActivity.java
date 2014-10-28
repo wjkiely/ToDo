@@ -18,18 +18,20 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-
+import java.util.List;
 
 public class MainActivity extends Activity implements OnClickListener {
 
     final String FILENAME = "goal_list_file";
 
+
+    ListView lv;
+    List<Model> modelItems;
     EditText txtItem;
     Button btnAdd;
     ListView listItems;
 
-    ArrayList<String> toDoItems;
-    ArrayAdapter<String> aa;
+    CustomAdapter adapter;
 
 
     // Called when the activity is first created
@@ -38,6 +40,11 @@ public class MainActivity extends Activity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        lv = (ListView) findViewById(R.id.listView1);
+        modelItems = new ArrayList<Model>(0);
+        adapter = new CustomAdapter(this, modelItems);
+        lv.setAdapter(adapter);
+
         txtItem = (EditText) findViewById(R.id.txtItem);
         btnAdd = (Button) findViewById(R.id.btnAdd);
         listItems = (ListView) findViewById(R.id.listItems);
@@ -45,28 +52,14 @@ public class MainActivity extends Activity implements OnClickListener {
         btnAdd.setOnClickListener(this);
         txtItem.setOnClickListener(this);
 
-        toDoItems = new ArrayList<String>();
-        try {
-            toDoItems = readToDoItems();
-        } catch (ClassNotFoundException e) {
-            Log.e("DATA", "Class not found", e);
-            e.printStackTrace();
-        } catch (IOException e) {
-            Log.e("DATA", "I/O problems", e);
-            e.printStackTrace();
-        }
-        aa = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, toDoItems);
-        listItems.setAdapter(aa);
-
     }
 
     private void addItem(String item) {
         if (item.length() > 0) {
-            this.toDoItems.add(item);
-            writeToDoItems(toDoItems);
-            this.aa.notifyDataSetChanged();
+            this.modelItems.add(new Model(item, 0));
             this.txtItem.setText("");
             this.txtItem.setHint("Add another goal");
+            this.adapter.notifyDataSetChanged();
         }
     }
 
@@ -120,5 +113,4 @@ public class MainActivity extends Activity implements OnClickListener {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }
