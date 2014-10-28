@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends Activity implements OnClickListener {
+
+    final String FILENAME = "goal_list_file";
+
     ListView lv;
     List<Model> modelItems;
     EditText txtItem;
