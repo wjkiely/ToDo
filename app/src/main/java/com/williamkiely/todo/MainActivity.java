@@ -2,6 +2,7 @@ package com.williamkiely.todo;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,12 +12,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends Activity implements OnClickListener {
 
     final String FILENAME = "goal_list_file";
+
 
     ListView lv;
     List<Model> modelItems;
@@ -61,6 +68,32 @@ public class MainActivity extends Activity implements OnClickListener {
             this.addItem(this.txtItem.getText().toString());
         }
     }
+
+    private void writeToDoItems(ArrayList<String> newToDoItems) {
+        FileOutputStream fos = null;
+        try {
+            fos = openFileOutput(FILENAME, MODE_PRIVATE);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(newToDoItems);
+            oos.close();
+            fos.close();
+        } catch (java.io.IOException e1) {
+            Log.e("DATA", "I/O Exception", e1);
+            e1.printStackTrace();
+        }
+    }
+
+    private ArrayList<String> readToDoItems() throws ClassNotFoundException, IOException {
+        ArrayList<String> newToDos = new ArrayList<String>();
+        FileInputStream fis = openFileInput(FILENAME);
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        newToDos = (ArrayList<String>) ois.readObject();
+        fis.close();
+        ois.close();
+        return newToDos;
+    }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
