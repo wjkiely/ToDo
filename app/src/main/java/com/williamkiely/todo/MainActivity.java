@@ -1,6 +1,7 @@
 package com.williamkiely.todo;
 
 import android.app.Activity;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -42,6 +43,17 @@ public class MainActivity extends Activity implements OnClickListener {
         setContentView(R.layout.activity_main);
         lv = (ListView) findViewById(R.id.listView1);
         modelItems = new ArrayList<Model>(0);
+        try {
+            modelItems = readToDoItems();
+        } catch (ClassNotFoundException e) {
+            Log.e("TAG?", "There was a ClassNotFoundException", e);
+            // TODO make this right
+            e.printStackTrace();
+        } catch (IOException e) {
+            Log.e("TAG?", "There was an IOException", e);
+            // TODO make this right
+            e.printStackTrace();
+        }
         adapter = new CustomAdapter(this, modelItems);
         lv.setAdapter(adapter);
 
@@ -57,6 +69,7 @@ public class MainActivity extends Activity implements OnClickListener {
     private void addItem(String item) {
         if (item.length() > 0) {
             this.modelItems.add(new Model(item, 0));
+            writeToDoItems(modelItems);
             this.txtItem.setText("");
             this.txtItem.setHint("Add another goal");
             this.adapter.notifyDataSetChanged();
@@ -69,12 +82,22 @@ public class MainActivity extends Activity implements OnClickListener {
         }
     }
 
-    private void writeToDoItems(ArrayList<String> newToDoItems) {
+    void writeToDoItems() {
+        this.writeToDoItems(modelItems);
+    }
+
+    private void writeToDoItems(List<Model> newToDoItems) {
+        ArrayList<Model> modelToSave;
+        if (newToDoItems instanceof ArrayList) {
+            modelToSave = (ArrayList<Model>) newToDoItems;
+        } else {
+            modelToSave = new ArrayList<Model>(newToDoItems);
+        }
         FileOutputStream fos = null;
         try {
             fos = openFileOutput(FILENAME, MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(newToDoItems);
+            oos.writeObject(modelToSave);
             oos.close();
             fos.close();
         } catch (java.io.IOException e1) {
@@ -83,11 +106,11 @@ public class MainActivity extends Activity implements OnClickListener {
         }
     }
 
-    private ArrayList<String> readToDoItems() throws ClassNotFoundException, IOException {
-        ArrayList<String> newToDos = new ArrayList<String>();
+    private List<Model> readToDoItems() throws ClassNotFoundException, IOException {
+        List<Model> newToDos = new ArrayList<Model>();
         FileInputStream fis = openFileInput(FILENAME);
         ObjectInputStream ois = new ObjectInputStream(fis);
-        newToDos = (ArrayList<String>) ois.readObject();
+        newToDos = (ArrayList<Model>) ois.readObject();
         fis.close();
         ois.close();
         return newToDos;
