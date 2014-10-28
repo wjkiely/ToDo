@@ -58,7 +58,6 @@ public class MainActivity extends Activity implements OnClickListener {
 
         btnAdd.setOnClickListener(this);
         txtItem.setOnClickListener(this);
-
     }
 
     private void addItem(String item) {

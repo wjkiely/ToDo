@@ -25,15 +25,21 @@ public CustomAdapter(MainActivity mainActivity, List<Model> resource) {
         this.modelItems = resource;
         }
 @Override
-public View getView(int position, View convertView, ViewGroup parent) {
+public View getView(final int position, View convertView, ViewGroup parent) {
 // TODO Auto-generated method stub
         LayoutInflater inflater = ((Activity)context).getLayoutInflater();
         convertView = inflater.inflate(R.layout.row, parent, false);
         TextView name = (TextView) convertView.findViewById(R.id.textView1);
-        CheckBox cb = (CheckBox) convertView.findViewById(R.id.checkBox1);
+        final CheckBox cb = (CheckBox) convertView.findViewById(R.id.checkBox1);
         cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    modelItems.set(position, new Model(modelItems.get(position).getName(), 1));
+                }
+                else {
+                    modelItems.set(position, new Model(modelItems.get(position).getName(), 0));
+                }
                 mainActivity.writeToDoItems();
             }
         });
