@@ -1,14 +1,12 @@
 package com.williamkiely.todo;
 
 import android.app.Activity;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -25,12 +23,10 @@ public class MainActivity extends Activity implements OnClickListener {
 
     final String FILENAME = "goal_list_file";
 
-
     ListView lv;
     List<Model> modelItems;
     EditText txtItem;
     Button btnAdd;
-    ListView listItems;
 
     CustomAdapter adapter;
 
@@ -46,11 +42,11 @@ public class MainActivity extends Activity implements OnClickListener {
         try {
             modelItems = readToDoItems();
         } catch (ClassNotFoundException e) {
-            Log.e("TAG?", "There was a ClassNotFoundException", e);
+            Log.e("DATA", "ClassNotFoundException", e);
             // TODO make this right
             e.printStackTrace();
         } catch (IOException e) {
-            Log.e("TAG?", "There was an IOException", e);
+            Log.e("DATA", "IOException", e);
             // TODO make this right
             e.printStackTrace();
         }
@@ -59,7 +55,6 @@ public class MainActivity extends Activity implements OnClickListener {
 
         txtItem = (EditText) findViewById(R.id.txtItem);
         btnAdd = (Button) findViewById(R.id.btnAdd);
-        listItems = (ListView) findViewById(R.id.listItems);
 
         btnAdd.setOnClickListener(this);
         txtItem.setOnClickListener(this);

@@ -28,19 +28,14 @@
         android:text="@string/add"/>
 
     <ListView
+        android:id="@+id/listView1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/listItems"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="100dp"
-        android:layout_alignParentEnd="false"
-        android:headerDividersEnabled="true" />
-    <ListView
-        android:id="@+id/listView1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/listItems">
+        android:headerDividersEnabled="true" >
     </ListView>
+
 </RelativeLayout>
