@@ -15,7 +15,9 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:text="@string/blank" />
+        android:text="@string/blank"
+        android:textColor="#F3F3F3"
+        android:textSize="24sp"/>
 
     <RadioGroup
         android:id="@+id/category_group"

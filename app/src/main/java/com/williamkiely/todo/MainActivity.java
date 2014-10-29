@@ -10,6 +10,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -22,6 +23,7 @@ import java.util.List;
 public class MainActivity extends Activity implements OnClickListener {
 
     final String FILENAME = "goal_list_file";
+    private GoalBook mGoalBook = new GoalBook();
 
     ListView lv;
     List<Model> modelItems;
@@ -40,6 +42,19 @@ public class MainActivity extends Activity implements OnClickListener {
         setContentView(R.layout.activity_main);
         lv = (ListView) findViewById(R.id.listView1);
         modelItems = new ArrayList<Model>(0);
+
+        final TextView goalLabel = (TextView) findViewById(R.id.textRandomGoal);
+        //Random Goal button
+        Button randomGoalButton = (Button) findViewById(R.id.randomGoal);
+        OnClickListener listener = new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String randomGoal = mGoalBook.getGoal();
+                goalLabel.setText(randomGoal);
+            }
+        };
+        randomGoalButton.setOnClickListener(listener);
+
         try {
             modelItems = readToDoItems();
         } catch (ClassNotFoundException e) {
@@ -59,6 +74,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
         btnAdd.setOnClickListener(this);
         txtItem.setOnClickListener(this);
+
     }
 
     private void addItem(String item) {
