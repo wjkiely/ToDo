@@ -3,6 +3,10 @@
     tools:context=".MainActivity" >
     <item android:id="@+id/delete_all"
         android:title="@string/delete_all"
+        android:orderInCategory="200"
+        android:showAsAction="never" />
+    <item android:id="@+id/ambitious"
+        android:title="@string/add_ambitious"
         android:orderInCategory="100"
         android:showAsAction="never" />
 </menu>

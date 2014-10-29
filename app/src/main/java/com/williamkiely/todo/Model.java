@@ -1,7 +1,6 @@
 package com.williamkiely.todo;
 
 import java.io.Serializable;
-import java.util.Set;
 
 public class Model implements Serializable {
     String name;

@@ -27,6 +27,7 @@ public class MainActivity extends Activity implements OnClickListener {
     List<Model> modelItems;
     EditText txtItem;
     Button btnAdd;
+    EditText textView1;
 
     CustomAdapter adapter;
 
@@ -65,7 +66,7 @@ public class MainActivity extends Activity implements OnClickListener {
             this.modelItems.add(new Model(item, 0));
             writeToDoItems(modelItems);
             this.txtItem.setText("");
-            this.txtItem.setHint("Add another goal");
+            this.txtItem.setHint("What do you want to do?");
             this.adapter.notifyDataSetChanged();
         }
     }
@@ -127,6 +128,12 @@ public class MainActivity extends Activity implements OnClickListener {
         int id = item.getItemId();
         if (id == R.id.delete_all) {
             this.modelItems.removeAll(modelItems);
+            this.adapter.notifyDataSetChanged();
+            this.writeToDoItems();
+            return true;
+        }
+        if (id == R.id.ambitious) {
+            this.modelItems.add(new Model("Accomplish more in life than Skinner", 0));
             this.adapter.notifyDataSetChanged();
             this.writeToDoItems();
             return true;
