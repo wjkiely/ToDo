@@ -22,6 +22,7 @@ import java.util.List;
 public class MainActivity extends Activity implements OnClickListener {
 
     final String FILENAME = "goal_list_file";
+    private GoalBook mGoalBook = new GoalBook();
 
     ListView lv;
     List<Model> modelItems;
@@ -59,6 +60,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
         btnAdd.setOnClickListener(this);
         txtItem.setOnClickListener(this);
+
     }
 
     private void addItem(String item) {
@@ -126,14 +128,23 @@ public class MainActivity extends Activity implements OnClickListener {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.delete_all) {
-            this.modelItems.removeAll(modelItems);
+        if (id == R.id.ambitious) {
+            this.modelItems.add(new Model("Accomplish more in life than Skinner", 0));
             this.adapter.notifyDataSetChanged();
             this.writeToDoItems();
             return true;
         }
-        if (id == R.id.ambitious) {
-            this.modelItems.add(new Model("Accomplish more in life than Skinner", 0));
+        if (id == R.id.random) {
+            this.modelItems.add(new Model(mGoalBook.getGoal(), 0));
+            this.adapter.notifyDataSetChanged();
+            this.writeToDoItems();
+            return true;
+        }
+        if (id == R.id.buffer) {
+            return true;
+        }
+        if (id == R.id.delete_all) {
+            this.modelItems.removeAll(modelItems);
             this.adapter.notifyDataSetChanged();
             this.writeToDoItems();
             return true;

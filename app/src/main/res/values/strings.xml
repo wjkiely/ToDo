@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Ninja Tasks</string>
+    <string name="app_name">Hex</string>
     <string name="delete_all">Delete All Goals</string>
     <string name="hint">What do you want to do?</string>
-    <string name="add">Add goal</string>
+    <string name="add">Add Goal</string>
     <string name="blank">""</string>
     <string name="add_ambitious">Add Ambitious Goal</string>
+    <string name="add_random">Add Random Goal</string>
 
 </resources>
